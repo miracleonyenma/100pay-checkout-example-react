@@ -16,7 +16,7 @@ const PaymentForm: React.FC<{ amount: number; currency: string }> = ({
       email,
       phone,
       currency,
-      amount,
+      amount: amount.toString(),
     });
   };
   return (
