@@ -19,6 +19,10 @@ const App = () => {
     setProductsState([...productsState, newProduct]);
   };
 
+  const handleRemoveProduct = (id: string) => {
+    setProductsState(productsState.filter((product) => product.id !== id));
+  };
+
   const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrency(e.target.value);
     productsState.forEach((product) => {
@@ -48,8 +52,29 @@ const App = () => {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
-                  <div className="product-info">
-                    <h2 className="text-2xl font-bold">{product.name}</h2>
+                  <div className="product-info grow">
+                    <div className="flex w-full justify-between items-center gap-4">
+                      <h2 className="text-2xl font-bold">{product.name}</h2>
+                      <button
+                        className="btn danger sm"
+                        onClick={() => handleRemoveProduct(product.id)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 icon"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                     <p>
                       {formatCurrency(product.price, {
                         currency: product.currency,
@@ -87,7 +112,9 @@ const App = () => {
             </div>
             <div>
               <PaymentForm
-                amount={products.map((p) => p.price).reduce((a, b) => a + b)}
+                amount={productsState
+                  .map((p) => p.price)
+                  .reduce((a, b) => a + b)}
                 currency={currency}
               />
             </div>
