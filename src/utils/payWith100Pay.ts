@@ -5,6 +5,7 @@ const payWith100Pay = (data: { [key: string]: string }) => {
     ref_id: "" + Math.floor(Math.random() * 1000000000 + 1),
     api_key: PAY_API_KEY,
     customer: {
+      user_id: "1", // optional
       name: data.name,
       phone: data.phone,
       email: data.email,
